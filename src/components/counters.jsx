@@ -17,7 +17,11 @@ class Counters extends Component {
   };
 
   handleIncrement = counter => {
-    console.log("incrementado");
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counter[index] = { ...counter };
+    counters[index].value++;
+    this.setState({ counters: counters });
   };
 
   handleRset = counterId => {
