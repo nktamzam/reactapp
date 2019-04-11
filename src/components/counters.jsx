@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import Counter from "./counter";
+import ListadoTareas from "./listadoTareas";
 
 class Counters extends Component {
   state = {
-    counters: [
-      { id: 1, value: 4 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 0 }
-    ]
+    counters: [{ id: 1, value: 4 }]
   };
 
   handleDelete = counterId => {
@@ -24,28 +19,11 @@ class Counters extends Component {
     this.setState({ counters: counters });
   };
 
-  handleRset = counterId => {
-    const counters = this.state.counters.map(c => {
-      c.value = 0;
-      return c;
-    });
-    this.setState({ counters: counters });
-  };
-
   render() {
     return (
       <div>
-        <button onClick={this.handleRset} className="btn btn-primary btn-sm">
-          Reset
-        </button>
-
         {this.state.counters.map(counter => (
-          <Counter
-            key={counter.id}
-            counter={counter}
-            onDelete={this.handleDelete}
-            onIncrement={this.handleIncrement}
-          />
+          <ListadoTareas />
         ))}
       </div>
     );
