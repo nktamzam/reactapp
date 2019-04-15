@@ -7,7 +7,10 @@ import axios from "axios";
 
 class App extends Component {
   state = {
-    tareas: []
+    tareas: [],
+    idMod: "",
+    formNueva: false,
+    listado: true
   };
 
   render() {
@@ -15,19 +18,45 @@ class App extends Component {
       <React.Fragment>
         <Menu />
         <main role="main" className="container">
-          <div>
-            <ModificarTarea tareas={this.state.tareas} />
-          </div>
-          <div>
-            <NuevaTarea />
-          </div>
-          <div>
-            <TableTareas tareas={this.state.tareas} recarga={this.recarga} />
-          </div>
+          {this.state.idMod !== "" ? (
+            <ModificarTarea tareas={this.state.tareas} id={this.state.idMod} />
+          ) : (
+            ""
+          )}
+          {this.printFormNuevo()}
+          {this.printTableTareas()}
         </main>
       </React.Fragment>
     );
   }
+
+  printTableTareas() {
+    if (this.state.idMod === "" && this.state.listado === true) {
+      return (
+        <TableTareas
+          tareas={this.state.tareas}
+          recarga={this.recarga}
+          modifica={this.modifica}
+          cargar={this.mostrarForm}
+        />
+      );
+    } else {
+      return "";
+    }
+  }
+
+  mostrarForm = () => {
+    this.setState({
+      formNueva: true,
+      listado: false
+    });
+  };
+
+  printFormNuevo = () => {
+    if (this.state.formNueva === true) {
+      return <NuevaTarea />;
+    }
+  };
 
   componentDidMount = () => {
     axios.get("https://appaeg.herokuapp.com/api/").then(res => {
@@ -39,6 +68,12 @@ class App extends Component {
   recarga = id => {
     this.setState({
       tareas: this.state.tareas.filter(x => x._id !== id)
+    });
+  };
+
+  modifica = id => {
+    this.setState({
+      idMod: id
     });
   };
 }

@@ -10,8 +10,9 @@ class ModificarTarea extends Component {
   };
 
   render() {
+    console.log("this.props.id", this.props.id);
     return (
-      <React.Fragment>
+      <div>
         <h1>Modificar tarea</h1>
         <form>
           <div className="form-group">
@@ -67,7 +68,7 @@ class ModificarTarea extends Component {
             </button>
           </div>
         </form>
-      </React.Fragment>
+      </div>
     );
   }
   getNombre = e => {
@@ -85,16 +86,14 @@ class ModificarTarea extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(`https://appaeg.herokuapp.com/api/5ca5d02026066e6c3fba7dd8`)
-      .then(res => {
-        this.setState({
-          id: res.data.tarea._id,
-          nombre: res.data.tarea.nombre,
-          descripcion: res.data.tarea.descripción,
-          estado: res.data.tarea.estado
-        });
+    axios.get(`https://appaeg.herokuapp.com/api/${this.props.id}`).then(res => {
+      this.setState({
+        id: res.data.tarea._id,
+        nombre: res.data.tarea.nombre,
+        descripcion: res.data.tarea.descripción,
+        estado: res.data.tarea.estado
       });
+    });
   }
 
   modificar = (id, nombre, descripcion, estado) => {

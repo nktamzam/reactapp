@@ -10,7 +10,7 @@ class NuevaTarea extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <h1>Nueva tarea</h1>
         <form>
           <div className="form-group">
@@ -65,7 +65,7 @@ class NuevaTarea extends Component {
             </button>
           </div>
         </form>
-      </React.Fragment>
+      </div>
     );
   }
   getNombre = e => {
