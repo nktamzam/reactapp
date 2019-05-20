@@ -31,6 +31,7 @@ class ModificarTarea extends Component {
                   ? "form-control is-invalid"
                   : "form-control is-valid"
               }
+              title="El nombre debe comenzar con mayusculas y sólo letras de la a-z"
             />
           </div>
           <div className="form-group">
