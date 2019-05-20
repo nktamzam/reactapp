@@ -5,7 +5,10 @@ class NuevaTarea extends Component {
   state = {
     nombre: "",
     descripcion: "",
-    estado: false
+    estado: false,
+    botonAnulado: true,
+    errorNombre: true,
+    errorDescripcion: true
   };
 
   render() {
@@ -21,7 +24,11 @@ class NuevaTarea extends Component {
               type="text"
               value={this.state.nombre}
               onChange={this.getNombre}
-              className="form-control"
+              className={
+                this.state.errorNombre
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+              }
             />
           </div>
           <div className="form-group">
@@ -31,7 +38,11 @@ class NuevaTarea extends Component {
               id="inputDescripcion"
               value={this.state.descripcion}
               onChange={this.getDescripcion}
-              className="form-control"
+              className={
+                this.state.errorDescripcion
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+              }
             />
           </div>
           <div className="form-group">
@@ -51,6 +62,7 @@ class NuevaTarea extends Component {
           </div>
           <div className="form-group">
             <button
+              disabled={this.state.botonAnulado}
               key="botonNuevo"
               className="btn btn-success"
               onClick={() => {
@@ -70,12 +82,36 @@ class NuevaTarea extends Component {
   }
   getNombre = e => {
     this.setState({ nombre: e.target.value });
-    console.log(this.state);
+    if (
+      e.target.value !== "" &&
+      !/(^[^A-Z]|[^A-Za-zñÑáéíóúÁÉÍÓÚ\s]+)/.test(e.target.value)
+    ) {
+      this.setState({ errorNombre: false });
+      console.log(this.state.errorDecripcion);
+      !this.state.errorDescripcion
+        ? this.setState({ botonAnulado: false })
+        : this.setState({ botonAnulado: true });
+    } else {
+      this.setState({ errorNombre: true });
+      this.setState({ botonAnulado: true });
+    }
   };
 
   getDescripcion = e => {
     this.setState({ descripcion: e.target.value });
-    console.log(this.state);
+    if (
+      e.target.value !== "" &&
+      !/(^[\s]|[^A-Za-z0-9ñÑáéíóúÁÉÍÓÚ()-.,:\s]+)+/.test(e.target.value)
+    ) {
+      this.setState({ errorDescripcion: false });
+      console.log(this.state.errorNombre);
+      !this.state.errorNombre
+        ? this.setState({ botonAnulado: false })
+        : this.setState({ botonAnulado: true });
+    } else {
+      this.setState({ errorDescripcion: true });
+      this.setState({ botonAnulado: true });
+    }
   };
 
   getEstado = e => {
