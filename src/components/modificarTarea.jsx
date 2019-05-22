@@ -31,7 +31,7 @@ class ModificarTarea extends Component {
                   ? "form-control is-invalid"
                   : "form-control is-valid"
               }
-              title="El nombre debe comenzar con mayusculas y sólo letras de la a-z"
+              title="Debe comenzar con una letra mayúscula. Sólo letras de la a-z"
             />
           </div>
           <div className="form-group">
@@ -46,6 +46,7 @@ class ModificarTarea extends Component {
                   ? "form-control is-invalid"
                   : "form-control is-valid"
               }
+              title="Sólo letras de la a-z y signos de puntuación"
             />
           </div>
           <div className="form-group">
@@ -105,7 +106,7 @@ class ModificarTarea extends Component {
     this.setState({ descripcion: e.target.value });
     if (
       e.target.value !== "" &&
-      !/(^[\s]|[^A-Za-z0-9ñÑáéíóúÁÉÍÓÚ()-.,:\s]+)+/.test(e.target.value)
+      !/(^[\s]|[^A-Za-z0-9ñÑáéíóúÁÉÍÓÚ-.,:\s]+)+/.test(e.target.value)
     ) {
       this.setState({ errorDescripcion: false });
       console.log(this.state.errorNombre);
